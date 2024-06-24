@@ -16,33 +16,54 @@ const App = () => {
     setOutput(processedInput);
   };
 
-  const handleSearch = async () => {
-    alert({output});
-    getUser();
+  const handleSearch =  () => {
+    
+    alert(output);
+    
+    
+      setClicked(true);
+      // const response = await fetch(`https://api.github.com/users/${data}`);
+      // const FinalData = await response.json();
+      // setUser(FinalData);
+
+      fetch(`https://api.github.com/users/${output}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setUser(data);
+        
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    
+    
+      
+    
   };
 
   const getUsers = async () => {
     const response = await fetch("https://api.github.com/users");
-    
     const FinalData = await response.json();
     setUsers(FinalData);
+    setClicked(false);
   };
 
-   const getUser = async () => {
-    setClicked(true);
-     const response = await fetch(`https://api.github.com/users/${output}`);
-     const FinalData = await response.json();
-     setUser(FinalData);
     
-  };
+    
+
 
   useEffect(() => {
     getUsers();
   });
 
-  useEffect(() => {
-    getUser();
-  },[handleSearch])
+  //  useEffect(() => {
+    
+  //  },);
+
+  //  useEffect(() => {
+  //    getUser();
+  // },[handleSearch]);
+
 
   return (
     <>
