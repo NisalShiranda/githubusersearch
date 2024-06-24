@@ -1,7 +1,8 @@
 :root{
   background: radial-gradient(circle at 1.8% 4.8%, rgb(17, 23, 58) 0%, rgb(58, 85, 148) 90%);
   background-repeat: no-repeat;
-  height:100%;
+  box-sizing: border-box;
+  
 }
 
 .input{
@@ -26,4 +27,45 @@
 .search-btn:hover{
   background: white;
   color: black;
+}
+
+.container{
+  margin:  0 auto;
+  
+}
+
+.card{
+  margin: 0 auto;
+  height: 300px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  img-centered: center;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.img-box{
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.img-user{
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.card-body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

@@ -6,7 +6,7 @@ const App = () => {
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [users, setUsers] = useState([]);
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
   const [clicked, setClicked] = useState(false);
 
   const handleInputChange = (event) => {
@@ -16,25 +16,23 @@ const App = () => {
     setOutput(processedInput);
   };
 
-  const handleSearch =  () => {
-    
-    alert(output);
-    
-    
-      setClicked(true);
-      // const response = await fetch(`https://api.github.com/users/${data}`);
-      // const FinalData = await response.json();
-      // setUser(FinalData);
+  const handleSearch = async  (event) => {
+    event.preventDefault();
+    setClicked(true);
 
-      fetch(`https://api.github.com/users/${output}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setUser(data);
+    try {
+      const response = await fetch(`https://api.github.com/users/${output}`);
+      if (!response.ok) {
         
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+        alert("User not found");
+        
+      }
+      const data = await response.json();
+      setUser(data);
+    } catch (error) {
+      console.error("Error:", error);
+      setUser(null); // Clear previous search result on error
+    }
     
     
       
@@ -54,7 +52,7 @@ const App = () => {
 
   useEffect(() => {
     getUsers();
-  });
+  },[]);
 
   //  useEffect(() => {
     
@@ -83,11 +81,12 @@ const App = () => {
         </button>
       </form>
 
-      <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
-          {!clicked?users.map((user) => (
+      <div className="container ">
+        <div className="grid grid-cols-1 md:grid-cols-3  gap-4 mt-5">
+          {
+            clicked && user? (
                 <div className="card" key={user.id}>
-                  <img src={user.avatar_url} alt="Avatar" />
+                  <img className="img-user" src={user.avatar_url} alt="Avatar" />
                   <div className="card-body">
                     <h2>{user.login}</h2>
                     <a href={user.html_url} target="_blank" rel="noreferrer">
@@ -95,18 +94,19 @@ const App = () => {
                     </a>
                   </div>
                 </div>
-              ))
-            :user.map((user) => (
-                <div className="card" key={user.id}>
-                  <img src={user.avatar_url} alt="Avatar" />
+              )
+            : (users.map((user) => (
+                <div className="card " key={user.id}>
+                  <p className="text-center">{user.login}</p>
+                  <div className="img-box"><img className="img-user" src={user.avatar_url} alt="Avatar" /></div>
                   <div className="card-body">
-                    <h2>{user.login}</h2>
+                    
                     <a href={user.html_url} target="_blank" rel="noreferrer">
                       View Profile
                     </a>
                   </div>
                 </div>
-              ))}
+              )))}
         </div>
       </div>
     </>
