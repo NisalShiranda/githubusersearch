@@ -60,6 +60,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 50%;
   
 }
 
@@ -68,4 +69,21 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.user-grid{
+  margin: 50px auto;
+  height: 75vh;
+}
+
+.card-user{
+  margin: 0 auto;
+  height: 550px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  img-centered: center;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 10px;
 }

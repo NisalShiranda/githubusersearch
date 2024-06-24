@@ -82,34 +82,58 @@ const App = () => {
       </form>
 
       <div className="container ">
-        <div className="grid grid-cols-1 md:grid-cols-3  gap-4 mt-5">
+        
           {
             clicked && user? (
-                <div className="card" key={user.id}>
-                  <img className="img-user" src={user.avatar_url} alt="Avatar" />
+              <div className="user-grid" >
+                <div className="card-user" key={user.id}>
+                  <p className="text-center text-xl font-bold mb-2">{user.name}</p>
+                  <div className="img-box"><img className="img-user" src={user.avatar_url} alt="Avatar" /></div>
                   <div className="card-body">
-                    <h2>{user.login}</h2>
+                    
+                    <div className="flex flex-col justify-center items-center pt-5">
+                      <p className="text-lg font-bold">Public Repos:</p>
+                      <p className="text-lg font-bold text-blue-500" >{user.public_repos}</p>
+                    </div>
+                    <div className="flex flex-col justify-center items-center pt-2">
+                      <p className="text-lg font-bold">BIO</p>
+                      <p className="font-thin text-center px-2" >{user.bio}</p>
+                    </div>
                     <a href={user.html_url} target="_blank" rel="noreferrer">
-                      View Profile
+                      <p className="pt-2 font-semibold">View Profile</p>
                     </a>
                   </div>
                 </div>
+              </div>
               )
-            : (users.map((user) => (
+            : (
+              <div className="grid grid-cols-1 md:grid-cols-3  gap-4 mt-5">
+              
+              
+              
+              {users.map((user) => (
+              
                 <div className="card " key={user.id}>
-                  <p className="text-center">{user.login}</p>
+                  <p className="text-center text-xl font-bold mb-2">{user.login}</p>
                   <div className="img-box"><img className="img-user" src={user.avatar_url} alt="Avatar" /></div>
                   <div className="card-body">
                     
                     <a href={user.html_url} target="_blank" rel="noreferrer">
-                      View Profile
+                      <p className="pt-2 font-semibold">View Profile</p>
                     </a>
                   </div>
                 </div>
-              )))}
-        </div>
+                
+              ))}
+              </div>
+              
+              
+              )}
+        
       </div>
+    
     </>
+    
   );
 };
 
